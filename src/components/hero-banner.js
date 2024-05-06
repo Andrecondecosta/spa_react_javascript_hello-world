@@ -1,27 +1,39 @@
-import React from "react";
+import React, { useState } from "react";
+import img1 from "../images/image1.jpg";
+import img2 from "../images/image2.jpg";
+import img3 from "../images/image3.jpg";
 
 export const HeroBanner = () => {
-  const logo = "https://cdn.auth0.com/blog/developer-hub/react-logo.svg";
+  const [currentSlide, setCurrentSlide] = useState(0);
+  const images = [img1, img2, img3];
+
+  const plusSlides = (n) => {
+    setCurrentSlide((prevSlide) => (prevSlide + n + images.length) % images.length);
+  };
 
   return (
-    <div className="hero-banner hero-banner--pink-yellow">
-      <div className="hero-banner__logo">
-        <img className="hero-banner__image" src={logo} alt="React logo" />
+    <div className="hero-page">
+      <div className="hero-title">
+        <h1> Bem vindo à minha pagina</h1>
+        <h1><strong>CDPHOTOGRAFY</strong></h1>
+        <span>Aqui você vai encontrar fotos de eventos, concursos, casamentos e muito mais</span>
       </div>
-      <h1 className="hero-banner__headline">Hello, React World!</h1>
-      <p className="hero-banner__description">
-        This is a sample application that demonstrates the authentication flow
-        for React apps using <strong>Auth0</strong>.
-      </p>
-      <a
-        id="code-sample-link"
-        target="_blank"
-        rel="noopener noreferrer"
-        href="https://developer.auth0.com/resources/code-samples/spa/react/basic-authentication"
-        className="button button--secondary"
-      >
-        Check out the React code sample →
-      </a>
+      <div className="hero-image">
+        <div className="slideshow-container">
+          {images.map((image, index) => (
+            <div className={`mySlides fade ${index === currentSlide ? "active" : ""}`} key={index}>
+              <img src={image} style={{width:"100%"}} />
+            </div>
+          ))}
+          <a className="prev" onClick={() => plusSlides(-1)}>&#10094;</a>
+          <a className="next" onClick={() => plusSlides(1)}>&#10095;</a>
+        </div>
+        <div className= "bottom-image">
+          {images.map((_, index) => (
+            <span className={`dot ${index === currentSlide ? "active" : ""}`} onClick={() => setCurrentSlide(index)} key={index}></span>
+          ))}
+        </div>
+      </div>
     </div>
   );
 };

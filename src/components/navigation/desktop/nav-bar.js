@@ -7,8 +7,8 @@ export const NavBar = () => {
   return (
     <div className="nav-bar__container">
       <nav className="nav-bar">
-        <NavBarBrand />
         <NavBarTabs />
+        <NavBarBrand />
         <NavBarButtons />
       </nav>
     </div>
