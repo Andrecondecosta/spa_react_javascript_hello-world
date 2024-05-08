@@ -10,9 +10,10 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
+  width: 40%;
 }
 .hero-title h1 {
-  font-size: 68px; /* Tamanho da fonte */
+  font-size: 35px; /* Tamanho da fonte */
   color: #c9c6c6; /* Cor do texto */
 }
 .hero-title h1 strong {
@@ -21,11 +22,11 @@
 }
 .hero-title span {
   color: #c9c6c6; /* Cor do texto */
-  font-size: 24px; /* Tamanho da fonte */
+  font-size: 16px; /* Tamanho da fonte */
   padding-top: 40px;
 }
 .hero-image {
-  width: 50%;
+  width: 40%;
 /* Slideshow container */
 .slideshow-container {
   max-width: 1000px;

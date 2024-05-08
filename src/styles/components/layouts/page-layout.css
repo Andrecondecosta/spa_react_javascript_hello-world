@@ -15,8 +15,9 @@
   flex-direction: column;
 
   margin-top: 8rem;
-  max-width: 80%;
+  max-width: 1640px;
   width: 100%;
+  padding: 0 20px;
 }
 
 @media only screen and (max-width: 640px) {

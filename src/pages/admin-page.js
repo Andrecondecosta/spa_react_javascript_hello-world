@@ -1,7 +1,8 @@
+import { PageLayout } from "../components/page-layout";
 import { useAuth0 } from "@auth0/auth0-react";
 import React, { useEffect, useState } from "react";
-import { CodeSnippet } from "../components/code-snippet";
-import { PageLayout } from "../components/page-layout";
+import Uploadwidget  from "../components/uploadwidget";
+
 import { getAdminResource } from "../services/message.service";
 
 export const AdminPage = () => {
@@ -31,18 +32,16 @@ export const AdminPage = () => {
 
    getMessage();
 
-   return () => {
-     isMounted = false;
-   };
- }, [getAccessTokenSilently]);
+
+  return () => {
+    isMounted = false;
+  };
+
+ }, [ getAccessTokenSilently]);
 
  return (
    <PageLayout>
-     <div className="content-layout">
-       <h1 id="page-title" className="content__title">
-         Admin Page
-       </h1>
-    </div>
+      <Uploadwidget category="HomePage"/>
    </PageLayout>
  );
 };
