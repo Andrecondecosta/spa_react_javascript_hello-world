@@ -19,17 +19,35 @@ function ImageList() {
 
   return (
     <div>
-      <h1>Images</h1>
+      <h1> Home Images</h1>
       {images.map((image, index) => (
-        <img
-          key={index}
-          src={image.image_data}
-          alt={image.title}
-          style={{ width: '300px', height: '300px', margin: "25px" }} // image_data já é uma URL
-        />
+        <div key={index} style={{ position: 'relative', display: 'inline-block' }}>
+          <img
+            src={image.image_data}
+            alt={image.title}
+            style={{ width: '200px', height: '130px', margin: "25px" }} // image_data já é uma URL
+          />
+          <button
+            style={{
+              position: 'absolute',
+              top: 0,
+              right: 0,
+              background: 'red',
+              color: 'white',
+              border: 'none',
+              cursor: 'pointer'
+            }}
+            onClick={() => handleRemoveImage(index)}
+          >
+            X
+          </button>
+        </div>
       ))}
     </div>
   );
+  function handleRemoveImage(index) {
+    setImages(images.filter((_, i) => i !== index));
+  }
 }
 
 export default ImageList;

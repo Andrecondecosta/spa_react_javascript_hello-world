@@ -1,15 +1,26 @@
-import React, { useState } from "react";
-import img1 from "../images/image1.jpg";
-import img2 from "../images/image2.jpg";
-import img3 from "../images/image3.jpg";
+import React, { useState, useEffect } from 'react';
 
 export const HeroBanner = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
-  const images = [img1, img2, img3];
+  const [images, setImages] = useState([]);
 
   const plusSlides = (n) => {
     setCurrentSlide((prevSlide) => (prevSlide + n + images.length) % images.length);
   };
+
+  const fetchImages = async () => {
+    try {
+      const response = await fetch('http://127.0.0.1:3000/api/v1/articles');
+      const data = await response.json();
+      setImages(data); // Não precisa fazer o parse de image_data
+    } catch (error) {
+      console.error('Error fetching images:', error);
+    }
+  };
+
+  useEffect(() => {
+    fetchImages();
+  }, []);
 
   return (
     <div className="hero-page">
@@ -22,7 +33,7 @@ export const HeroBanner = () => {
         <div className="slideshow-container">
           {images.map((image, index) => (
             <div className={`mySlides fade ${index === currentSlide ? "active" : ""}`} key={index}>
-              <img src={image} style={{width:"100%"}} />
+              <img src={image.image_data} style={{width:"100%"}} /> {/* Ajuste aqui para usar image_data */}
             </div>
           ))}
           <a className="prev" onClick={() => plusSlides(-1)}>&#10094;</a>
