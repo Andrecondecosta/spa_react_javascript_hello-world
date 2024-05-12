@@ -1,8 +1,8 @@
 import { PageLayout } from "../components/page-layout";
 import { useAuth0 } from "@auth0/auth0-react";
 import React, { useEffect, useState } from "react";
-import Uploadwidget  from "../components/uploadwidget";
-
+import Uploadwidget  from "../components/Uploadwidget";
+import ImageList from "../components/ImageList";
 import { getAdminResource } from "../services/message.service";
 
 export const AdminPage = () => {
@@ -41,7 +41,8 @@ export const AdminPage = () => {
 
  return (
    <PageLayout>
-      <Uploadwidget category="HomePage"/>
+      <Uploadwidget/>
+      <ImageList/>
    </PageLayout>
  );
 };
