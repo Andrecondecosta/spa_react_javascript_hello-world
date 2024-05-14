@@ -9,7 +9,9 @@ function FormCategory() {
 
     const formData = new FormData();
     formData.append('category[name]', name);
-    formData.append('category[image]', image);
+    if (image) {
+      formData.append('category[image]', image);
+    }
 
     const response = await fetch('http://127.0.0.1:3000/api/v1/categories', {
       method: 'POST',

@@ -22,39 +22,51 @@ function ImageList({ category = "" }) {
   };
 
   const deleteImage = async (id) => {
-    const response = await fetch(`http://127.0.0.1:3000/api/v1/${category}/${id}`, {
-      method: 'DELETE',
-    });
-    if (response.ok) {
+    try {
+      const response = await fetch(`http://127.0.0.1:3000/api/v1/${category}/${id}`, {
+        method: 'DELETE',
+      });
+
+      if (!response.ok) {
+        const message = await response.text();
+        throw new Error(message);
+      }
+
       setImages(images.filter((image) => image.id !== id));
+    } catch (error) {
+      console.error('Error deleting image:', error);
     }
   };
+
 
   return (
     <div>
       <h1> {category}</h1>
       {images.map((image, index) => (
         <div key={index} style={{ position: 'relative', display: 'inline-block' }}>
-          <img
-            src={image.image_data}
-            alt={image.title}
-            style={{ width: '200px', height: '130px', margin: "25px" }} // image_data já é uma URL
-          />
-          <button
-            style={{
-              position: 'absolute',
-              top: 0,
-              right: 0,
-              background: 'red',
-              color: 'white',
-              border: 'none',
-              cursor: 'pointer'
-            }}
-            onClick={() => deleteImage(image.id)}
-          >
-            X
-          </button>
-        </div>
+  {image.image_data && (
+    <img
+      src={image.image_data}
+      alt={image.title}
+      style={{ width: '200px', height: '130px', margin: "25px" }} // image_data já é uma URL
+    />
+  )}
+  <p>{image.name}</p>
+  <button
+    style={{
+      position: 'absolute',
+      top: 15,
+      right: 0,
+      background: 'red',
+      color: 'white',
+      border: 'none',
+      cursor: 'pointer'
+    }}
+    onClick={() => deleteImage(image.id)}
+  >
+    X
+  </button>
+</div>
       ))}
     </div>
   );

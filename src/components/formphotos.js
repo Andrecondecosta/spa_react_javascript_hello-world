@@ -2,14 +2,16 @@ import React, { useState } from 'react';
 
 function FormPhoto() {
   const [title, setTitle] = useState('');
-  const [image, setImage] = useState(null);
+  const [images, setImages] = useState([]);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
 
     const formData = new FormData();
     formData.append('photo[title]', title);
-    formData.append('photo[image]', image);
+    images.forEach((image, index) => {
+      formData.append(`photo[images][${index}]`, image);
+    });
 
     const response = await fetch('http://127.0.0.1:3000/api/v1/photos', {
       method: 'POST',
@@ -30,8 +32,8 @@ function FormPhoto() {
         <input type="text" value={title} onChange={(e) => setTitle(e.target.value)} />
       </label>
       <label>
-        Image:
-        <input type="file" onChange={(e) => setImage(e.target.files[0])} />
+        Images:
+        <input type="file" multiple onChange={(e) => setImages([...e.target.files])} />
       </label>
       <button type="submit">Upload</button>
     </form>
