@@ -5,6 +5,7 @@ import Uploadwidget  from "../components/Uploadwidget";
 import ImageList from "../components/ImageList";
 import Formcategory from "../components/formcategory";
 import Formphotos from "../components/formphotos";
+import CategoryPhotoForm from "../components/categoryphotoform";
 import { getAdminResource } from "../services/message.service";
 
 export const AdminPage = () => {
@@ -49,6 +50,7 @@ export const AdminPage = () => {
       <ImageList category="categories" />
       <Formphotos/>
       <ImageList category="photos" />
+      <CategoryPhotoForm/>
    </PageLayout>
  );
 };
