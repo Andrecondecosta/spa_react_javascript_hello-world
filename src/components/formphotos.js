@@ -1,29 +1,37 @@
 import React, { useState } from 'react';
 
-function FormPhoto() {
+const FormPhoto = () => {
   const [title, setTitle] = useState('');
   const [images, setImages] = useState([]);
 
-  const handleSubmit = async (event) => {
-    event.preventDefault();
+  const handleSubmit = async (e) => {
+    e.preventDefault();
 
-    const formData = new FormData();
-    formData.append('photo[title]', title);
-    images.forEach((image, index) => {
-      formData.append(`photo[images][${index}]`, image);
-    });
+    for (let i = 0; i < images.length; i++) {
+      const formData = new FormData();
+      formData.append('photo[title]', title);
+      formData.append('photo[image]', images[i]);
 
-    const response = await fetch('http://127.0.0.1:3000/api/v1/photos', {
-      method: 'POST',
-      body: formData,
-    });
+      const response = await fetch('http://127.0.0.1:3000/api/v1/photos', {
+        method: 'POST',
+        body: formData,
+      });
 
-    if (response.ok) {
-      console.log('Upload successful');
-    } else {
-      console.log('Upload failed');
+      // Log the headers
+      for (let pair of response.headers.entries()) {
+        console.log(pair[0]+ ': '+ pair[1]);
+      }
+
+      if (response.ok) {
+        console.log(`Upload of image ${i + 1} successful`);
+      } else {
+        console.log(`Upload of image ${i + 1} failed`);
+        const message = await response.text();
+        console.log(`Error: ${message}`);
+      }
     }
   };
+
 
   return (
     <form onSubmit={handleSubmit}>
@@ -38,6 +46,6 @@ function FormPhoto() {
       <button type="submit">Upload</button>
     </form>
   );
-}
+};
 
 export default FormPhoto;
