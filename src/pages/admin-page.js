@@ -7,6 +7,7 @@ import Formcategory from "../components/formcategory";
 import Formphotos from "../components/formphotos";
 import CategoryPhotoForm from "../components/categoryphotoform";
 import { getAdminResource } from "../services/message.service";
+import PhotosByCategory from "../components/photosbycategory";
 
 export const AdminPage = () => {
   const [message, setMessage] = useState("");
@@ -51,6 +52,7 @@ export const AdminPage = () => {
       <Formphotos/>
       <ImageList category="photos" />
       <CategoryPhotoForm/>
+      <PhotosByCategory/>
    </PageLayout>
  );
 };
