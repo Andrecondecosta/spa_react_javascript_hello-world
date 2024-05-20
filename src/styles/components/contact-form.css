@@ -1,0 +1,92 @@
+.contact-form{
+  font-size: 13px;
+  color: black;
+  width: 35%;
+}
+.form-name{
+  display: flex;
+}
+#first-name{
+  margin-right: 10px;
+  height: 46px;
+  width: 268px;
+  border-radius: 25px;
+  border-width: 1px;
+  border-color: black;
+  border-style: solid;
+  padding: 15px;
+  font-size: 16px;
+  margin-top: 5px;
+  background-color: #d5d2cd;
+}
+#last-name{
+  margin-right: 10px;
+  height: 46px;
+  width: 268px;
+  border-radius: 25px;
+  border-width: 1px;
+  border-color: black;
+  border-style: solid;
+  padding: 15px;
+  font-size: 16px;
+  margin-top: 5px;
+  background-color: #d5d2cd;
+}
+#email{
+  height: 46px;
+  width: 546px;
+  border-radius: 25px;
+  border-width: 1px;
+  border-color: black;
+  border-style: solid;
+  padding: 15px;
+  font-size: 16px;
+  margin-top: 5px;
+  background-color:#d5d2cd;
+}
+#message{
+  height: 148px;
+  width: 546px;
+  border-radius: 25px;
+  border-width: 1px;
+  border-color: black;
+  border-style: solid;
+  padding: 15px;
+  font-size: 16px;
+  margin-top: 5px;
+  background-color: #d5d2cd;
+}
+#subject{
+  height: 46px;
+  width: 546px;
+  border-radius: 25px;
+  border-width: 1px;
+  border-color: black;
+  border-style: solid;
+  padding: 15px;
+  font-size: 16px;
+  margin-top: 5px;
+  background-color: #d5d2cd;
+}
+#first-name:hover, #last-name:hover, #email:hover, #message:hover, #subject:hover{
+  background-color: #ffffff;
+}
+#first-name:focus, #last-name:focus, #email:focus, #message:focus, #subject:focus{
+  border-width: 1px;
+  background-color: #ffffff;
+  box-shadow: 0 0 0 3px #000
+}
+.submit {
+  display: block;
+  margin: auto;
+  border-radius: 18px;
+  width: 89px;
+  height: 40px;
+  background-color: #9c8b7e;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+.submit:hover {
+  background-color: rgba(156, 139, 126, 0.5);
+}

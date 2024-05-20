@@ -8,7 +8,7 @@
   /*box-shadow: rgb(90 95 102) 0-1.5px 0 inset;*/
 
   z-index: 300;
-  background-color: var(--brown);
+  background-color: #d5d2cd;
 }
 
 .nav-bar {
@@ -42,6 +42,7 @@
   align-items: center;
 
   height: 100%;
+
 }
 
 .nav-bar__logo {
@@ -51,6 +52,7 @@
 .nav-bar__tabs {
   display: flex;
   align-items: center;
+
 }
 
 .nav-bar__tab {
@@ -63,6 +65,7 @@
   font-weight: 500;
   font-size: 16px;
   line-height: 16px;
+  color: black;
 }
 
 .nav-bar__tab:last-child {
