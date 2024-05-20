@@ -7,7 +7,7 @@ import { AdminPage } from "./pages/admin-page";
 import { CallbackPage } from "./pages/callback-page";
 import { HomePage } from "./pages/home-page";
 import { NotFoundPage } from "./pages/not-found-page";
-import { ProfilePage } from "./pages/profile-page";
+import  ContactPage  from "./pages/contact-page";
 import { ProtectedPage } from "./pages/protected-page";
 import { PublicPage } from "./pages/public-page";
 
@@ -26,9 +26,7 @@ export const App = () => {
    <Routes>
      <Route path="/" element={<HomePage />} />
      <Route
-       path="/profile"
-       element={<AuthenticationGuard component={ProfilePage} />}
-     />
+       path="/contact" element={<ContactPage />}  />
      <Route path="/public" element={<PublicPage />} />
      <Route
        path="/protected"
