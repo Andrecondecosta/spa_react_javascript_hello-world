@@ -46,7 +46,8 @@
 }
 
 .nav-bar__logo {
-  height: 3.2rem;
+  height: 78px;
+  width: 78px;
 }
 
 .nav-bar__tabs {

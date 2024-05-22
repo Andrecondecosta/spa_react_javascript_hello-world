@@ -8,8 +8,9 @@ import { CallbackPage } from "./pages/callback-page";
 import { HomePage } from "./pages/home-page";
 import { NotFoundPage } from "./pages/not-found-page";
 import  ContactPage  from "./pages/contact-page";
-import { ProtectedPage } from "./pages/protected-page";
+import  PortfolioPage from "./pages/portfolio-page";
 import { PublicPage } from "./pages/public-page";
+import  CategoryPage  from "./pages/category-page";
 
 export const App = () => {
  const { isLoading } = useAuth0();
@@ -29,14 +30,14 @@ export const App = () => {
        path="/contact" element={<ContactPage />}  />
      <Route path="/public" element={<PublicPage />} />
      <Route
-       path="/protected"
-       element={<AuthenticationGuard component={ProtectedPage} />}
-     />
+       path="/portfolio" element={<PortfolioPage />} />
+     <Route path="/category/:id" element={<CategoryPage />} />
      <Route
        path="/admin"
        element={<AuthenticationGuard component={AdminPage} />}
      />
      <Route path="/callback" element={<CallbackPage />} />
+
      <Route path="*" element={<NotFoundPage />} />
    </Routes>
  );
