@@ -29,7 +29,7 @@ function FormCategory() {
     <form onSubmit={handleSubmit}>
       <label>
         Name:
-        <input type="text" value={name} onChange={(e) => setName(e.target.value)} />
+        <input type="text" value={name} onChange={(e) => setName(e.target.value.toUpperCase())} />
       </label>
       <label>
         Image:
