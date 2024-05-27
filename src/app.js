@@ -11,6 +11,7 @@ import  ContactPage  from "./pages/contact-page";
 import  PortfolioPage from "./pages/portfolio-page";
 import { PublicPage } from "./pages/public-page";
 import  CategoryPage  from "./pages/category-page";
+import ImageListPhoto  from "./pages/ImageListPhoto";
 
 export const App = () => {
  const { isLoading } = useAuth0();
@@ -36,6 +37,7 @@ export const App = () => {
        path="/admin"
        element={<AuthenticationGuard component={AdminPage} />}
      />
+      <Route path="/ImageListPhoto" element={<AuthenticationGuard component={ImageListPhoto} />} />
      <Route path="/callback" element={<CallbackPage />} />
 
      <Route path="*" element={<NotFoundPage />} />

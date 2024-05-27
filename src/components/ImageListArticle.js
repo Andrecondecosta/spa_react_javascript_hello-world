@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
+import UploadWidget from './Uploadwidget';
 
-function ImageList({ category = "" }) {
+function ImageListArticle({ category = "" }) {
   const [images, setImages] = useState([]);
 
   useEffect(() => {
@@ -9,7 +10,7 @@ function ImageList({ category = "" }) {
 
   const fetchImages = async () => {
     try {
-      const response = await fetch(`http://127.0.0.1:3000/api/v1/${category}`);
+      const response = await fetch(`http://127.0.0.1:3000/api/v1/articles`);
       const data = await response.json();
       if (Array.isArray(data)) {
         setImages(data);
@@ -17,13 +18,13 @@ function ImageList({ category = "" }) {
         console.error('API response is not an array:', data);
       }
     } catch (error) {
-      console.error(`Error fetching ${category} images:`, error);
+      console.error(`Error fetching articles images:`, error);
     }
   };
 
   const deleteImage = async (id) => {
     try {
-      const response = await fetch(`http://127.0.0.1:3000/api/v1/${category}/${id}`, {
+      const response = await fetch(`http://127.0.0.1:3000/api/v1/articles/${id}`, {
         method: 'DELETE',
       });
 
@@ -41,7 +42,8 @@ function ImageList({ category = "" }) {
 
   return (
     <div>
-      <h1> {category}</h1>
+      <h1> Articles</h1>
+      <UploadWidget />
       {images.map((image, index) => (
         <div key={index} style={{ position: 'relative', display: 'inline-block' }}>
   {image.image_data && (
@@ -55,10 +57,9 @@ function ImageList({ category = "" }) {
   <button
     style={{
       position: 'absolute',
-      top: 15,
-      right: 0,
-      background: 'red',
-      color: 'white',
+      top: 25,
+      right: 25,
+      color: 'black',
       border: 'none',
       cursor: 'pointer'
     }}
@@ -72,4 +73,4 @@ function ImageList({ category = "" }) {
   );
 }
 
-export default ImageList;
+export default ImageListArticle;

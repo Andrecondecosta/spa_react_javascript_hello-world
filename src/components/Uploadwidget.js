@@ -25,10 +25,7 @@ const handleSubmit = async (event) => {
 
 return (
   <form onSubmit={handleSubmit}>
-    <label>
-      Title:
-      <input type="text" value={title} onChange={(e) => setTitle(e.target.value)} />
-    </label>
+
     <label>
       Image:
       <input type="file" onChange={(e) => setFile(e.target.files[0])} />
