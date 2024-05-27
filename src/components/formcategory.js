@@ -31,10 +31,6 @@ function FormCategory() {
         Name:
         <input type="text" value={name} onChange={(e) => setName(e.target.value.toUpperCase())} />
       </label>
-      <label>
-        Image:
-        <input type="file" onChange={(e) => setImage(e.target.files[0])} />
-      </label>
       <button type="submit">Upload</button>
     </form>
   );
