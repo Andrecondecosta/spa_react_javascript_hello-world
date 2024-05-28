@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import FormCategory from './formcategory';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTrashCan } from '@fortawesome/free-solid-svg-icons';
 
 function ImageListCategories() {
   const [images, setImages] = useState([]);
@@ -41,34 +43,24 @@ function ImageListCategories() {
 
 
   return (
-    <div>
-      <h1> Categories</h1>
-      <FormCategory />
-      {images.map((image, index) => (
-        <div key={index} style={{ position: 'relative', display: 'inline-block' }}>
-  {image.image_data && (
-    <img
-      src={image.image_data}
-      alt={image.title}
-      style={{ width: '200px', height: '130px', margin: "25px" }} // image_data já é uma URL
-    />
-  )}
-  <p>{image.name}</p>
-  <button
-    style={{
-      position: 'absolute',
-      top: 25,
-      right: 25,
-      color: 'black',
-      border: 'none',
-      cursor: 'pointer'
-    }}
-    onClick={() => deleteImage(image.id)}
-  >
-    X
-  </button>
-</div>
-      ))}
+    <div className='categories'>
+      <div className='title-categories'>
+        <h1 className='title'> Categories</h1>
+        <FormCategory />
+      </div>
+      <div className='show-categories'>
+        {images.map((image, index) => (
+          <div key={image.id} style={{ display: 'flex', alignItems: 'center' }}>
+            <li className='image-name'>{image.name}</li>
+            <button className='delete-button'
+
+              onClick={() => deleteImage(image.id)}
+            >
+            <FontAwesomeIcon icon={faTrashCan} />
+            </button>
+          </div>
+        ))}
+      </div>
     </div>
   );
 }

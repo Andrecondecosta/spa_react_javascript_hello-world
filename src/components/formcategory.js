@@ -28,10 +28,11 @@ function FormCategory() {
   return (
     <form onSubmit={handleSubmit}>
       <label>
-        Name:
-        <input type="text" value={name} onChange={(e) => setName(e.target.value.toUpperCase())} />
+      <span style={{fontSize: "23px", marginRight: "5px"}}>Name:</span>
       </label>
-      <button type="submit">Upload</button>
+      <br />
+        <input type="text" value={name} onChange={(e) => setName(e.target.value.toUpperCase())} />
+      <button type="submit" >Upload</button>
     </form>
   );
 }

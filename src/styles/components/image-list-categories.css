@@ -1,0 +1,35 @@
+.categories {
+  display: flex;
+  justify-content: flex-start;
+  margin-bottom: 5px;
+
+}
+.title {
+  margin-top: 10px;
+  font-size: 30px;
+}
+.title-categories {
+  margin-right: 10px;
+  width: 250px;
+}
+.show-categories{
+  display: flex;
+  flex-wrap: wrap;
+  margin: 10px;;
+  width: 100%;
+}
+
+.image-name{
+  font-size: 1.5em;
+  font-weight: bold;
+  color: #0e0e0e;
+  text-align: center;
+  margin-left: 40px;
+}
+
+.delete-button{
+    color: black;
+    border : none;
+    cursor: pointer;
+    background: none;
+}
