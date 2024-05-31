@@ -12,6 +12,7 @@ import  PortfolioPage from "./pages/portfolio-page";
 import { PublicPage } from "./pages/public-page";
 import  CategoryPage  from "./pages/category-page";
 import ImageListPhoto  from "./pages/ImageListPhoto";
+import CategoryPhotoForm from "./pages/categoryphotoform";
 
 export const App = () => {
  const { isLoading } = useAuth0();
@@ -38,6 +39,7 @@ export const App = () => {
        element={<AuthenticationGuard component={AdminPage} />}
      />
       <Route path="/ImageListPhoto" element={<AuthenticationGuard component={ImageListPhoto} />} />
+      <Route path="/categoryphotoform" element={<AuthenticationGuard component={CategoryPhotoForm} />} />
      <Route path="/callback" element={<CallbackPage />} />
 
      <Route path="*" element={<NotFoundPage />} />

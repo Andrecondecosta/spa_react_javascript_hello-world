@@ -45,7 +45,7 @@ function ImageListCategories() {
   return (
     <div className='categories'>
       <div className='title-categories'>
-        <h1 className='title'> Categories</h1>
+        <h1 className='title-photos'> Categories</h1>
         <FormCategory />
       </div>
       <div className='show-categories'>

@@ -1,12 +1,12 @@
 import { PageLayout } from "../components/page-layout";
 import { useAuth0 } from "@auth0/auth0-react";
 import React, { useEffect, useState } from "react";
-import CategoryPhotoForm from "../components/categoryphotoform";
 import { getAdminResource } from "../services/message.service";
 import PhotosByCategory from "../components/photosbycategory";
 import ImageListCategories from "../components/ImageListCategories";
 import ImageListArticle from "../components/ImageListArticle";
 import PhotosAdmim from "../components/photosAdmim";
+import CategoryPhotoAdmin from "../components/categoryphoto-admin";
 
 export const AdminPage = () => {
   const [message, setMessage] = useState("");
@@ -53,7 +53,7 @@ export const AdminPage = () => {
       <HorizontalLine />
       <PhotosAdmim />
       <HorizontalLine />
-      <CategoryPhotoForm/>
+      <CategoryPhotoAdmin/>
       <HorizontalLine />
       <PhotosByCategory/>
     </PageLayout>

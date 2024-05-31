@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { PageLayout } from '../components/page-layout';
 
 function CategoryPhotoForm() {
   const [categories, setCategories] = useState([]);
@@ -63,6 +64,7 @@ function CategoryPhotoForm() {
   };
 
   return (
+    <PageLayout>
     <div>
       <h1>Associate Images to Category</h1>
       <form onSubmit={handleSubmit}>
@@ -95,6 +97,7 @@ function CategoryPhotoForm() {
         {message && <p>{message}</p>}
       </form>
     </div>
+    </PageLayout>
   );
 }
 
