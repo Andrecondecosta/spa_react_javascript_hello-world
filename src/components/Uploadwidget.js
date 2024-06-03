@@ -11,7 +11,7 @@ const handleSubmit = async (event) => {
   formData.append('article[title]', title);
   formData.append('article[image]', file);
 
-  const response = await fetch('http://127.0.0.1:3000/api/v1/articles', {
+  const response = await fetch('${process.env.REACT_APP_API_SERVER_URL}/articles', {
     method: 'POST',
     body: formData,
   });
