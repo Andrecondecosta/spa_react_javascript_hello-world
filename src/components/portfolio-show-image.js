@@ -40,12 +40,8 @@ function PortfolioShowImage() {
             return (
               <div key={categoryId}>
                 <div className="card">
-                  <img
-                    key={categoryPhotos[0].id}
-                    src={categoryPhotos[0].photo.image_data}
-                    alt={`Image of ${categoryPhotos[0].photo.title}`}
-                    className="img-container"
-                  />
+                <img key={categoryPhotos[0].id} src={categoryPhotos[0].photo.image_data} alt={categoryPhotos[0].photo.title} className="img-container" />
+
                   <h1>{categoryPhotos[0].category.name}</h1>
                   <p className="title">Category: {categoryPhotos[0].category.name}</p>
                   <Link to={`/category/${categoryPhotos[0].category.id}`}>

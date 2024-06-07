@@ -2,6 +2,7 @@
   "name": "spa_react_javascript_hello-world",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://cdphotografy.onrender.com",
   "dependencies": {
     "@auth0/auth0-react": "^2.2.4",
     "@cloudinary/react": "^1.13.0",

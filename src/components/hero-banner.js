@@ -53,8 +53,8 @@ export const HeroBanner = () => {
                 <img src={image.image_data} alt={image.title} style={{width: "100%"}} />
               </div>
             ))}
-            <a className="prev" onClick={() => plusSlides(-1)}>&#10094;</a>
-            <a className="next" onClick={() => plusSlides(1)}>&#10095;</a>
+            <button className="prev" onClick={() => plusSlides(-1)}>&#10094;</button>
+            <button className="next" onClick={() => plusSlides(1)}>&#10095;</button>
           </div>
         )}
         <div className="bottom-image">

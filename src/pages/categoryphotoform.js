@@ -72,7 +72,7 @@ function CategoryPhotoForm() {
         throw new Error('Failed to create associations.');
       }
 
-      const data = await response.json();  // Embora não esteja sendo usado, pode ser útil para lógica adicional
+      // const data = await response.json(); // <--- Remova esta linha
       setMessage('Associations created successfully!');
       setSelectedCategory('');
       setSelectedImages([]);
@@ -81,6 +81,7 @@ function CategoryPhotoForm() {
       setMessage('Failed to create associations.');
     }
   };
+
 
   return (
     <PageLayout>
