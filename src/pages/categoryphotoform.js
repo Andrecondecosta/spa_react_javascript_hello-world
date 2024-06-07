@@ -12,13 +12,19 @@ function CategoryPhotoForm() {
     const fetchData = async () => {
       try {
         const [categoryResponse, imageResponse] = await Promise.all([
-          fetch('http://localhost:3000/api/v1/categories'),
-          fetch('http://localhost:3000/api/v1/photos')
+          fetch(`${process.env.REACT_APP_API_SERVER_URL}/categories`),
+          fetch(`${process.env.REACT_APP_API_SERVER_URL}/photos`)
         ]);
+
+        if (!categoryResponse.ok || !imageResponse.ok) {
+          throw new Error('Failed to load data from server.');
+        }
+
         const [categoryData, imageData] = await Promise.all([
           categoryResponse.json(),
           imageResponse.json()
         ]);
+
         setCategories(categoryData);
         setImages(imageData);
       } catch (error) {
@@ -44,8 +50,14 @@ function CategoryPhotoForm() {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+
+    if (!selectedCategory || selectedImages.length === 0) {
+      setMessage('Please select a category and at least one image.');
+      return;
+    }
+
     try {
-      const response = await fetch('http://localhost:3000/api/v1/category_photos', {
+      const response = await fetch(`${process.env.REACT_APP_API_SERVER_URL}/category_photos`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -55,8 +67,15 @@ function CategoryPhotoForm() {
           image_ids: selectedImages
         })
       });
-      const data = await response.json();
-      setMessage('Associações criadas com sucesso');
+
+      if (!response.ok) {
+        throw new Error('Failed to create associations.');
+      }
+
+      const data = await response.json();  // Embora não esteja sendo usado, pode ser útil para lógica adicional
+      setMessage('Associations created successfully!');
+      setSelectedCategory('');
+      setSelectedImages([]);
     } catch (error) {
       console.error('Error:', error);
       setMessage('Failed to create associations.');
@@ -65,38 +84,50 @@ function CategoryPhotoForm() {
 
   return (
     <PageLayout>
-    <div>
-      <h1>Associate Images to Category</h1>
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label>Select Category:</label>
-          <select value={selectedCategory} onChange={handleCategoryChange}>
-            <option value="">--Select a Category--</option>
-            {categories.map(category => (
-              <option key={category.id} value={category.id}>{category.name}</option>
-            ))}
-          </select>
-        </div>
-        <div>
-          <label>Select Images:</label>
-          {images.map((image, index) => (
-            <div key={index} style={{ position: 'relative', display: 'inline-block' }}>
-              <label>
-                <input
-                  type="checkbox"
-                  value={image.id}
-                  checked={selectedImages.includes(image.id)}
-                  onChange={handleImageSelection}
-                />
-                <img src={image.image_data} alt={image.title} style={{ width: '50px', height: '50px' }}/>
-              </label>
+      <div className="category-photo-form">
+        <h1>Associate Images to Category</h1>
+        <form onSubmit={handleSubmit}>
+          <div>
+            <label htmlFor="category-select">Select Category:</label>
+            <select
+              id="category-select"
+              value={selectedCategory}
+              onChange={handleCategoryChange}
+            >
+              <option value="">--Select a Category--</option>
+              {categories.map(category => (
+                <option key={category.id} value={category.id}>
+                  {category.name}
+                </option>
+              ))}
+            </select>
+          </div>
+          <div>
+            <label>Select Images:</label>
+            <div className="image-selection">
+              {images.map((image) => (
+                <div key={image.id} className="image-item">
+                  <label>
+                    <input
+                      type="checkbox"
+                      value={image.id}
+                      checked={selectedImages.includes(image.id)}
+                      onChange={handleImageSelection}
+                    />
+                    <img
+                      src={image.image_data}
+                      alt={image.title}
+                      className="thumbnail"
+                    />
+                  </label>
+                </div>
+              ))}
             </div>
-          ))}
-        </div>
-        <button type="submit">Associate Images</button>
-        {message && <p>{message}</p>}
-      </form>
-    </div>
+          </div>
+          <button type="submit">Associate Images</button>
+          {message && <p className="message">{message}</p>}
+        </form>
+      </div>
     </PageLayout>
   );
 }

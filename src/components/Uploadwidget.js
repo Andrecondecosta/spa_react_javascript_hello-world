@@ -1,38 +1,64 @@
 import React, { useState } from 'react';
 
 function UploadWidget() {
-const [title, setTitle] = useState('');
-const [file, setFile] = useState(null);
+  const [title, setTitle] = useState('');
+  const [file, setFile] = useState(null);
+  const [message, setMessage] = useState('');
 
-const handleSubmit = async (event) => {
-  event.preventDefault();
+  const handleSubmit = async (event) => {
+    event.preventDefault();
 
-  const formData = new FormData();
-  formData.append('article[title]', title);
-  formData.append('article[image]', file);
+    if (!title || !file) {
+      setMessage('Please fill out all fields.');
+      return;
+    }
 
-  const response = await fetch('${process.env.REACT_APP_API_SERVER_URL}/articles', {
-    method: 'POST',
-    body: formData,
-  });
+    const formData = new FormData();
+    formData.append('article[title]', title);
+    formData.append('article[image]', file);
 
-  if (response.ok) {
-    console.log('Upload successful');
-  } else {
-    console.log('Upload failed');
-  }
-};
+    try {
+      const response = await fetch(`${process.env.REACT_APP_API_SERVER_URL}/articles`, {
+        method: 'POST',
+        body: formData,
+      });
 
-return (
-  <form onSubmit={handleSubmit}>
+      if (response.ok) {
+        setMessage('Upload successful');
+        setTitle('');
+        setFile(null);
+      } else {
+        const errorText = await response.text();
+        setMessage(`Upload failed: ${errorText}`);
+      }
+    } catch (error) {
+      setMessage(`Error: ${error.message}`);
+    }
+  };
 
-    <label>
-      Image:
-      <input type="file" onChange={(e) => setFile(e.target.files[0])} />
-    </label>
-    <button type="submit">Upload</button>
-  </form>
-);
+  return (
+    <form onSubmit={handleSubmit}>
+      <label>
+        Title:
+        <input
+          type="text"
+          value={title}
+          onChange={(e) => setTitle(e.target.value)}
+        />
+      </label>
+      <br />
+      <label>
+        Image:
+        <input
+          type="file"
+          onChange={(e) => setFile(e.target.files[0])}
+        />
+      </label>
+      <br />
+      <button type="submit">Upload</button>
+      {message && <p>{message}</p>}
+    </form>
+  );
 }
 
 export default UploadWidget;

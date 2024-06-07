@@ -4,29 +4,32 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrashCan } from '@fortawesome/free-solid-svg-icons';
 
 function ImageListCategories() {
-  const [images, setImages] = useState([]);
+  const [categories, setCategories] = useState([]);
 
   useEffect(() => {
-    fetchImages();
-  });
-
-  const fetchImages = async () => {
-    try {
-      const response = await fetch(`http://127.0.0.1:3000/api/v1/categories`);
-      const data = await response.json();
-      if (Array.isArray(data)) {
-        setImages(data);
-      } else {
-        console.error('API response is not an array:', data);
+    const fetchImages = async () => {
+      try {
+        const response = await fetch(`${process.env.REACT_APP_API_SERVER_URL}/categories`);
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        const data = await response.json();
+        if (Array.isArray(data)) {
+          setCategories(data);
+        } else {
+          console.error('API response is not an array:', data);
+        }
+      } catch (error) {
+        console.error(`Error fetching categories images:`, error);
       }
-    } catch (error) {
-      console.error(`Error fetching categories images:`, error);
-    }
-  };
+    };
 
-  const deleteImage = async (id) => {
+    fetchImages();
+  }, []); // Lista de dependências vazia para rodar apenas uma vez
+
+  const deleteCategory = async (id) => {
     try {
-      const response = await fetch(`http://127.0.0.1:3000/api/v1/categories/${id}`, {
+      const response = await fetch(`${process.env.REACT_APP_API_SERVER_URL}/categories/${id}`, {
         method: 'DELETE',
       });
 
@@ -35,32 +38,32 @@ function ImageListCategories() {
         throw new Error(message);
       }
 
-      setImages(images.filter((image) => image.id !== id));
+      setCategories(categories.filter((category) => category.id !== id));
     } catch (error) {
-      console.error('Error deleting image:', error);
+      console.error('Error deleting category:', error);
     }
   };
-
 
   return (
     <div className='categories'>
       <div className='title-categories'>
-        <h1 className='title-photos'> Categories</h1>
+        <h1 className='title-photos'>Categories</h1>
         <FormCategory />
       </div>
-      <div className='show-categories'>
-        {images.map((image, index) => (
-          <div key={image.id} style={{ display: 'flex', alignItems: 'center' }}>
-            <li className='image-name'>{image.name}</li>
-            <button className='delete-button'
-
-              onClick={() => deleteImage(image.id)}
+      <ul className='show-categories'>
+        {categories.map((category) => (
+          <li key={category.id} className='category-item'>
+            <span className='category-name'>{category.name}</span>
+            <button
+              className='delete-button'
+              onClick={() => deleteCategory(category.id)}
+              aria-label={`Delete category ${category.name}`}
             >
-            <FontAwesomeIcon icon={faTrashCan} />
+              <FontAwesomeIcon icon={faTrashCan} />
             </button>
-          </div>
+          </li>
         ))}
-      </div>
+      </ul>
     </div>
   );
 }
