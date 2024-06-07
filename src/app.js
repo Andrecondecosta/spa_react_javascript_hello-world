@@ -9,7 +9,7 @@ import { HomePage } from "./pages/home-page";
 import { NotFoundPage } from "./pages/not-found-page";
 import ContactPage from "./pages/contact-page";
 import PortfolioPage from "./pages/portfolio-page";
-import PublicPage from "./pages/public-page";
+import { PublicPage } from "./pages/public-page";
 import CategoryPage from "./pages/category-page";
 import ImageListPhoto from "./pages/ImageListPhoto";
 import CategoryPhotoForm from "./pages/categoryphotoform";
