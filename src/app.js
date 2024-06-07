@@ -7,42 +7,36 @@ import { AdminPage } from "./pages/admin-page";
 import { CallbackPage } from "./pages/callback-page";
 import { HomePage } from "./pages/home-page";
 import { NotFoundPage } from "./pages/not-found-page";
-import  ContactPage  from "./pages/contact-page";
-import  PortfolioPage from "./pages/portfolio-page";
-import { PublicPage } from "./pages/public-page";
-import  CategoryPage  from "./pages/category-page";
-import ImageListPhoto  from "./pages/ImageListPhoto";
+import ContactPage from "./pages/contact-page";
+import PortfolioPage from "./pages/portfolio-page";
+import PublicPage from "./pages/public-page";
+import CategoryPage from "./pages/category-page";
+import ImageListPhoto from "./pages/ImageListPhoto";
 import CategoryPhotoForm from "./pages/categoryphotoform";
 
 export const App = () => {
- const { isLoading } = useAuth0();
+  const { isLoading } = useAuth0();
 
- if (isLoading) {
-   return (
-     <div className="page-layout">
-       <PageLoader />
-     </div>
-   );
- }
+  if (isLoading) {
+    return (
+      <div className="page-layout">
+        <PageLoader />
+      </div>
+    );
+  }
 
- return (
-   <Routes>
-     <Route path="/" element={<HomePage />} />
-     <Route
-       path="/contact" element={<ContactPage />}  />
-     <Route path="/public" element={<PublicPage />} />
-     <Route
-       path="/portfolio" element={<PortfolioPage />} />
-     <Route path="/category/:id" element={<CategoryPage />} />
-     <Route
-       path="/admin"
-       element={<AuthenticationGuard component={AdminPage} />}
-     />
+  return (
+    <Routes>
+      <Route path="/" element={<HomePage />} />
+      <Route path="/contact" element={<ContactPage />} />
+      <Route path="/public" element={<PublicPage />} />
+      <Route path="/portfolio" element={<PortfolioPage />} />
+      <Route path="/category/:id" element={<CategoryPage />} />
+      <Route path="/admin" element={<AuthenticationGuard component={AdminPage} />} />
       <Route path="/ImageListPhoto" element={<AuthenticationGuard component={ImageListPhoto} />} />
       <Route path="/categoryphotoform" element={<AuthenticationGuard component={CategoryPhotoForm} />} />
-     <Route path="/callback" element={<CallbackPage />} />
-
-     <Route path="*" element={<NotFoundPage />} />
-   </Routes>
- );
+      <Route path="/callback" element={<CallbackPage />} />
+      <Route path="*" element={<NotFoundPage />} />
+    </Routes>
+  );
 };
