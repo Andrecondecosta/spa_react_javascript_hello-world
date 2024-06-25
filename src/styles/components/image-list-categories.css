@@ -13,18 +13,21 @@
   width: 250px;
 }
 .show-categories{
-  display: flex;
-  flex-wrap: wrap;
-  margin: 10px;;
+  display: grid;
+  grid-template-columns: repeat(7, 1fr); /* Cria 7 colunas de tamanho igual */
+  gap: 10px; /* Espaço entre os itens */
+  margin: 10px;
   width: 100%;
+  list-style: none;
+  padding: 0;
 }
 
-.image-name{
-  font-size: 1.5em;
+.category-name{
+  font-size: 18px;
   font-weight: bold;
   color: #0e0e0e;
   text-align: center;
-  margin-left: 40px;
+
 }
 
 .delete-button{

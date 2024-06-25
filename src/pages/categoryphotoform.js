@@ -72,7 +72,7 @@ function CategoryPhotoForm() {
         throw new Error('Failed to create associations.');
       }
 
-      // const data = await response.json(); // <--- Remova esta linha
+
       setMessage('Associations created successfully!');
       setSelectedCategory('');
       setSelectedImages([]);
@@ -86,26 +86,26 @@ function CategoryPhotoForm() {
   return (
     <PageLayout>
       <div className="category-photo-form">
-        <h1>Associate Images to Category</h1>
-        <form onSubmit={handleSubmit}>
-          <div>
-            <label htmlFor="category-select">Select Category:</label>
-            <select
-              id="category-select"
-              value={selectedCategory}
-              onChange={handleCategoryChange}
-            >
-              <option value="">--Select a Category--</option>
-              {categories.map(category => (
-                <option key={category.id} value={category.id}>
-                  {category.name}
-                </option>
-              ))}
-            </select>
+          <h1 className='title-form-select'>Associate Images to Category</h1>
+          <form onSubmit={handleSubmit}>
+            <div className='form-select'>
+              <label htmlFor="category-select" className="category-select-name">Select Category:</label>
+              <select
+                id="category-select"
+                value={selectedCategory}
+                onChange={handleCategoryChange}
+              >
+                <option value="">--Select a Category--</option>
+                {categories.map(category => (
+                  <option key={category.id} value={category.id}>
+                    {category.name}
+                  </option>
+                ))}
+              </select>
           </div>
           <div>
-            <label>Select Images:</label>
-            <div className="image-selection">
+            <label className='name-categoryphoto'>Select Images:</label>
+            <div className="image-selection image-grid">
               {images.map((image) => (
                 <div key={image.id} className="image-item">
                   <label>
@@ -125,8 +125,10 @@ function CategoryPhotoForm() {
               ))}
             </div>
           </div>
-          <button type="submit">Associate Images</button>
-          {message && <p className="message">{message}</p>}
+          <div className='messageandbutton'>
+          <button type="submit" className="submit-button-category">Associate Images</button>
+          {message && <p className="message-text">{message}</p>}
+          </div>
         </form>
       </div>
     </PageLayout>

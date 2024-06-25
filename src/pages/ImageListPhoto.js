@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { PageLayout } from '../components/page-layout';
 
-
 function ImageWithHover({ image, deleteImage }) {
   const [isHovered, setIsHovered] = useState(false);
 
@@ -39,6 +38,7 @@ function ImageWithHover({ image, deleteImage }) {
     </div>
   );
 }
+
 function ImageListPhoto() {
   const [images, setImages] = useState([]);
 
@@ -48,7 +48,7 @@ function ImageListPhoto() {
 
   const fetchImages = async () => {
     try {
-      const response = await fetch(`http://127.0.0.1:3000/api/v1/photos`);
+      const response = await fetch(`${process.env.REACT_APP_API_SERVER_URL}/photos`);
       const data = await response.json();
       if (Array.isArray(data)) {
         setImages(data);
@@ -62,7 +62,7 @@ function ImageListPhoto() {
 
   const deleteImage = async (id) => {
     try {
-      const response = await fetch(`http://127.0.0.1:3000/api/v1/photos/${id}`, {
+      const response = await fetch(`${process.env.REACT_APP_API_SERVER_URL}/photos/${id}`, {
         method: 'DELETE',
       });
 
@@ -79,14 +79,13 @@ function ImageListPhoto() {
 
   const imagesByMonth = images.reduce((acc, image) => {
     const date = new Date(image.created_at);
-    if (isNaN(date)) {
+    if (isNaN(date.getTime())) {
       console.error('Invalid date:', image.created_at);
       return acc;
     }
 
     const month = date.toLocaleString('default', { month: 'long' });
     const year = date.getFullYear();
-
     const key = `${month} ${year}`;
 
     if (!acc[key]) {
@@ -101,22 +100,18 @@ function ImageListPhoto() {
   return (
     <PageLayout>
       <div>
-        <h1> Photos</h1>
+        <h1>Photos</h1>
         {Object.entries(imagesByMonth).map(([month, images]) => (
           <div key={month} style={{ position: 'relative', zIndex: 1 }}>
             <h2>{month}</h2>
-            {images
-              .map((image, index) => ({ ...image, index }))
-              .sort((a, b) => (a.isHovered ? 1 : b.isHovered ? -1 : b.index - a.index))
-              .map((image, index) => (
-                <ImageWithHover key={index} image={image} deleteImage={deleteImage} />
-              ))}
+            {images.map((image, index) => (
+              <ImageWithHover key={index} image={image} deleteImage={deleteImage} />
+            ))}
           </div>
         ))}
       </div>
     </PageLayout>
   );
-
 }
 
 export default ImageListPhoto;
