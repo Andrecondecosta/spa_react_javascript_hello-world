@@ -1,0 +1,51 @@
+.image-grid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 10px;
+  overflow-x: auto;
+  margin-top: 25px;
+}
+
+.image-item {
+  /* Seus estilos existentes */
+}
+
+.thumbnail {
+  width: 181px;
+  height: 120px;
+  margin-top: 5px;
+}
+.submit-button-category{
+  margin-top: 10px;
+  font-size: 14px;
+  margin-bottom: 10px;
+}
+.name-categoryphoto{
+  margin-top: 10px;
+  font-size: 18px;
+  color: black;
+}
+.messageandbutton {
+  display: flex;
+  margin-top: 23px;
+}
+.message-text{
+  margin-top: 15px;
+  padding-left: 13px;
+  color: black;
+}
+#category-select{
+  padding: 4px;
+  font-size: 19px;
+}
+.category-select-name{
+  color: black;
+  font-size: 24px;
+  margin-right: 20px;
+}
+.form-select{
+  display: flex;
+  justify-content: center;
+  margin-bottom: 66px;
+  margin-top: 45px;
+}

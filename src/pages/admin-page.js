@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
 import { PageLayout } from "../components/page-layout";
 import { getAdminResource } from "../services/message.service";
@@ -13,28 +13,15 @@ const HorizontalLine = ({ color = 'black', height = '1px' }) => (
 );
 
 export const AdminPage = () => {
-  const [message, setMessage] = useState("");
   const { getAccessTokenSilently } = useAuth0();
 
   useEffect(() => {
     let isMounted = true;
 
     const getMessage = async () => {
-      try {
+      if (isMounted) {
         const accessToken = await getAccessTokenSilently();
-        const { data, error } = await getAdminResource(accessToken);
-
-        if (isMounted) {
-          if (data) {
-            setMessage(JSON.stringify(data, null, 2));
-          } else if (error) {
-            setMessage(JSON.stringify(error, null, 2));
-          }
-        }
-      } catch (error) {
-        if (isMounted) {
-          setMessage(`Error: ${error.message}`);
-        }
+        await getAdminResource(accessToken);
       }
     };
 
@@ -47,12 +34,6 @@ export const AdminPage = () => {
 
   return (
     <PageLayout>
-      {message && (
-        <div>
-          <pre>{message}</pre>
-          <HorizontalLine />
-        </div>
-      )}
       <ImageListArticle />
       <HorizontalLine />
       <ImageListCategories />
