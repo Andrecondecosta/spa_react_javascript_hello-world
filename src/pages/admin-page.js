@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
 import { PageLayout } from "../components/page-layout";
 import { getAdminResource } from "../services/message.service";
-import PhotosByCategory from "../components/photosbycategory";
+import PhotosByCategory from "./photosbycategory";
 import ImageListCategories from "../components/ImageListCategories";
 import ImageListArticle from "../components/ImageListArticle";
 import PhotosAdmin from "../components/photosAdmim";
@@ -42,7 +42,6 @@ export const AdminPage = () => {
       <HorizontalLine />
       <CategoryPhotoAdmin />
       <HorizontalLine />
-      <PhotosByCategory />
     </PageLayout>
   );
 };

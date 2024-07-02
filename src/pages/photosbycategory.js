@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
+import { PageLayout } from '../components/page-layout';
 
 const PhotosByCategory = () => {
   const [categories, setCategories] = useState({});
@@ -75,29 +76,32 @@ const PhotosByCategory = () => {
   };
 
   return (
+    <PageLayout>
     <div>
       {error && <p className="error-message">{error}</p>}
       {Object.entries(categories).map(([categoryId, categoryPhotos]) => {
         return (
           <div key={categoryId}>
-            <h2>
+            <h2 className="category-heading">
               {categoryPhotos[0].category.name}
               <button
                 onClick={() => deleteCategory(categoryId)}
-                style={{ margin: '5px' }}>
+                className="btn-delete-category"
+              >
                 <FontAwesomeIcon icon={faTimes} />
               </button>
             </h2>
             {categoryPhotos.map((categoryPhoto) => (
-              <div key={categoryPhoto.id}>
+              <div key={categoryPhoto.id} className="photo-item">
                 <img
                   src={categoryPhoto.photo.image_data}
                   alt={categoryPhoto.photo.title}
-                  style={{ width: '50px', height: '50px', margin: '5px' }}
+                  className="image-category"
                 />
                 <button
                   onClick={() => deletePhoto(categoryPhoto.id)}
-                  style={{ margin: '5px' }}
+                  className="btn-delete-photo"
+
                 >
                   <FontAwesomeIcon icon={faTimes} />
                 </button>
@@ -107,6 +111,7 @@ const PhotosByCategory = () => {
         );
       })}
     </div>
+    </PageLayout>
   );
 };
 

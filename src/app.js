@@ -13,6 +13,9 @@ import { PublicPage } from "./pages/public-page";
 import CategoryPage from "./pages/category-page";
 import ImageListPhoto from "./pages/ImageListPhoto";
 import CategoryPhotoForm from "./pages/categoryphotoform";
+import PhotosByCategory from "./pages/photosbycategory";
+import ContactList from "./pages/contact-list";
+import ThankYouPage from "./pages/thank-you-page";
 
 export const App = () => {
   const { isLoading } = useAuth0();
@@ -32,9 +35,12 @@ export const App = () => {
       <Route path="/public" element={<PublicPage />} />
       <Route path="/portfolio" element={<PortfolioPage />} />
       <Route path="/category/:id" element={<CategoryPage />} />
+      <Route path="/thank-you" element={<ThankYouPage />} />
       <Route path="/admin" element={<AuthenticationGuard component={AdminPage} />} />
       <Route path="/ImageListPhoto" element={<AuthenticationGuard component={ImageListPhoto} />} />
       <Route path="/categoryphotoform" element={<AuthenticationGuard component={CategoryPhotoForm} />} />
+      <Route path="/photosbycategory" element={<AuthenticationGuard component={PhotosByCategory} />} />
+      <Route path="/contactlist" element={<AuthenticationGuard component={ContactList} />} />
       <Route path="/callback" element={<CallbackPage />} />
       <Route path="*" element={<NotFoundPage />} />
     </Routes>
