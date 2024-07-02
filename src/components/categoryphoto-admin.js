@@ -9,6 +9,10 @@ function CategoryPhotoAdmin() {
       <Link to="/categoryphotoform">
         <span className='link'>Click here to Associate Images to Category</span>
       </Link>
+      <br />
+      <Link to="/photosbycategory">
+        <span className='link'>Click here for edit portfolio</span>
+      </Link>
     </div>
   );
 }

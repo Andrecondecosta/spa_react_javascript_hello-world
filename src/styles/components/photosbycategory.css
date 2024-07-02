@@ -1,0 +1,30 @@
+.photos-container {
+  display: flex;
+  flex-direction: row;
+  overflow-x: auto;
+  white-space: nowrap; /* Impede que os itens internos quebrem a linha */
+}
+.category-heading{
+  margin-top: 58px;
+}
+.btn-delete-category{
+  font-size: 8px;
+  position: relative;
+  left: 5px;
+  bottom: 12px;
+}
+
+.photo-item {
+  display: inline-flex; /* Se .photo-item for um contêiner para cada imagem */
+  margin-right: 10px; /* Ajuste conforme necessário para espaçamento entre imagens */
+}
+.image-category {
+  width: 120px;
+  height: 91px;
+  margin: 5px;
+}
+
+.btn-delete-photo{
+  margin: 5px 0px 0px -28px;
+  height: 19px;
+}
