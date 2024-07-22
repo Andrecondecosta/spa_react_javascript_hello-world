@@ -9,7 +9,9 @@ export const CallbackPage = () => {
   useEffect(() => {
     const processCallback = async () => {
       try {
+        console.log('Processing callback...');
         await handleRedirectCallback();
+        console.log('Callback processed, navigating to home...');
         navigate('/'); // Redireciona para a página inicial ou outra página desejada
       } catch (error) {
         console.error('Erro de autenticação:', error);
