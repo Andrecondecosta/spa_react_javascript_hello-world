@@ -11,7 +11,7 @@ export const Auth0ProviderWithNavigate = ({ children }) => {
 
   const onRedirectCallback = (appState) => {
     console.log('onRedirectCallback called', appState);
-    navigate(appState?.returnTo || '/'); // Redireciona para a página inicial ou outra página desejada
+    navigate(appState?.returnTo || window.location.pathname); // Redireciona para a página inicial ou outra página desejada
   };
 
   if (!(domain && clientId && redirectUri)) {
