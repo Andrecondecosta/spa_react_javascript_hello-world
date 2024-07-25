@@ -7,6 +7,7 @@
     "@auth0/auth0-react": "^2.2.4",
     "@cloudinary/react": "^1.13.0",
     "@cloudinary/url-gen": "^1.19.0",
+    "@fortawesome/fontawesome-svg-core": "^6.6.0",
     "@fortawesome/free-solid-svg-icons": "^6.5.2",
     "@fortawesome/react-fontawesome": "^0.2.1",
     "axios": "^0.27.2",
@@ -14,6 +15,8 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-dropzone": "^14.2.3",
+    "react-grid-gallery": "^1.0.1",
+    "react-image-lightbox": "^5.1.4",
     "react-router-dom": "^6.3.0",
     "react-scripts": "5.0.1"
   },

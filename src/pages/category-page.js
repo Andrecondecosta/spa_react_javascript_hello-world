@@ -1,14 +1,18 @@
 import React, { useEffect, useState } from 'react';
-import { useParams, useNavigate } from 'react-router-dom'; // Importe useNavigate
+import { useParams, useNavigate } from 'react-router-dom';
 import { PageLayout } from '../components/page-layout';
 import ContactForm from '../components/contact-form';
+import { Gallery } from 'react-grid-gallery';
+import Lightbox from 'react-image-lightbox';
+import 'react-image-lightbox/style.css';
 
 const CategoryPage = () => {
   const { id } = useParams();
-  const navigate = useNavigate(); // Use useNavigate para redirecionar
+  const navigate = useNavigate();
   const [categoryPhotos, setCategoryPhotos] = useState([]);
-  const [selectedPhotos, setSelectedPhotos] = useState([]);
-  const [isSelecting, setIsSelecting] = useState(false); // Estado para controlar a seleção
+  const [images, setImages] = useState([]);
+  const [index, setIndex] = useState(-1);
+  const hasSelected = images.some((image) => image.isSelected);
 
   const fetchCategoryPhotos = async (id) => {
     const response = await fetch(`${process.env.REACT_APP_API_SERVER_URL}/category_photos`);
@@ -21,63 +25,90 @@ const CategoryPage = () => {
       if (Array.isArray(photos)) {
         const photosInCategory = photos.filter(photo => photo.category_id === Number(id));
         setCategoryPhotos(photosInCategory);
+        setImages(photosInCategory.map(photo => ({
+          id: photo.id, // Ensure each photo has a unique identifier
+          src: photo.photo.image_data,
+          thumbnail: photo.photo.image_data,
+          isSelected: false,
+          caption: photo.photo.title,
+          original: photo.photo.image_data // Add original image data for Lightbox
+        })));
       } else {
         console.error('Data is not an array:', photos);
       }
     });
   }, [id]);
 
-  const togglePhotoSelection = (photoId) => {
-    setSelectedPhotos(prevSelectedPhotos =>
-      prevSelectedPhotos.includes(photoId)
-        ? prevSelectedPhotos.filter(id => id !== photoId)
-        : [...prevSelectedPhotos, photoId]
+  const handleSelect = (index, image) => {
+    const nextImages = images.map((img, i) =>
+      i === index ? { ...img, isSelected: !img.isSelected } : img
     );
+    setImages(nextImages);
   };
 
-  const handleSelectButtonClick = () => {
-    setIsSelecting(!isSelecting); // Alterna entre ativar e desativar a seleção
+  const handleSelectAllClick = () => {
+    const nextImages = images.map((image) => ({
+      ...image,
+      isSelected: !hasSelected,
+    }));
+    setImages(nextImages);
   };
 
   const handleFormSubmit = () => {
-    const totalAmount = selectedPhotos.length * 20; // Calcula o valor total
-    navigate('/thank-you', { state: { totalAmount } }); // Redireciona para a página de agradecimento com o valor
+    const selectedPhotos = images.filter(image => image.isSelected);
+    const totalAmount = selectedPhotos.length * 20;
+    navigate('/thank-you', { state: { totalAmount, selectedPhotos } });
   };
+
+  const currentImage = images[index];
+  const nextIndex = (index + 1) % images.length;
+  const nextImage = images[nextIndex] || currentImage;
+  const prevIndex = (index + images.length - 1) % images.length;
+  const prevImage = images[prevIndex] || currentImage;
+
+  const handleClick = (index) => setIndex(index);
+  const handleClose = () => setIndex(-1);
+  const handleMovePrev = () => setIndex(prevIndex);
+  const handleMoveNext = () => setIndex(nextIndex);
 
   return (
     <PageLayout>
       <div>
         <button
-          onClick={handleSelectButtonClick}
+          onClick={handleSelectAllClick}
           style={{
-            backgroundColor: isSelecting ? '#007BFF' : '#6c757d', // Azul para ativado, cinza para desativado
+            backgroundColor: hasSelected ? '#007BFF' : '#6c757d',
             color: '#fff',
             padding: '10px 20px',
             border: 'none',
             borderRadius: '5px',
             cursor: 'pointer',
-            opacity: isSelecting ? 1 : 0.7, // Mais opaco quando desativado
-            transition: 'opacity 0.3s ease' // Transição suave para a opacidade
+            opacity: hasSelected ? 1 : 0.7,
+            transition: 'opacity 0.3s ease'
           }}
         >
-          {isSelecting ? 'Cancelar Seleção' : 'Selecionar Fotos'}
+          {hasSelected ? 'Clear selection' : 'Select all'}
         </button>
         {Array.isArray(categoryPhotos) && categoryPhotos.length > 0 && <h1>{categoryPhotos[0].category.name}</h1>}
-        {Array.isArray(categoryPhotos) && categoryPhotos.map(photo => (
-          <img
-            key={photo.id}
-            src={photo.photo.image_data}
-            alt={photo.photo.title}
-            style={{
-              width: '100px',
-              height: '100px',
-              margin: '5px',
-              border: isSelecting && selectedPhotos.includes(photo.id) ? '2px solid blue' : 'none', // Ativa a seleção de fotos
-              cursor: isSelecting ? 'pointer' : 'default' // Muda o cursor para pointer durante a seleção
-            }}
-            onClick={isSelecting ? () => togglePhotoSelection(photo.id) : null} // Ativa a seleção ao clicar na foto
+        <Gallery
+          images={images}
+          onClick={handleClick}
+          onSelect={handleSelect} // Use onSelect instead of onSelectImage
+        />
+        {!!currentImage && (
+          <Lightbox
+            mainSrc={currentImage.original}
+            imageTitle={currentImage.caption}
+            mainSrcThumbnail={currentImage.src}
+            nextSrc={nextImage.original}
+            nextSrcThumbnail={nextImage.src}
+            prevSrc={prevImage.original}
+            prevSrcThumbnail={prevImage.src}
+            onCloseRequest={handleClose}
+            onMovePrevRequest={handleMovePrev}
+            onMoveNextRequest={handleMoveNext}
           />
-        ))}
+        )}
       </div>
       <ContactForm
         showFirstName={true}
@@ -85,8 +116,8 @@ const CategoryPage = () => {
         showEmail={true}
         showSubject={false}
         showMessage={true}
-        selectedPhotos={selectedPhotos}
-        onSubmit={handleFormSubmit} // Passe a função de submissão
+        selectedPhotos={images.filter(image => image.isSelected).map(image => image.id)} // Include photo IDs
+        onSubmit={handleFormSubmit}
       />
     </PageLayout>
   );
