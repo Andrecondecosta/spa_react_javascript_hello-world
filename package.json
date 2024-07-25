@@ -16,7 +16,7 @@
     "react-dom": "^18.2.0",
     "react-dropzone": "^14.2.3",
     "react-grid-gallery": "^1.0.1",
-    "react-image-lightbox": "^5.1.4",
+    "react-awesome-lightbox": "^1.0.0",
     "react-router-dom": "^6.3.0",
     "react-scripts": "5.0.1"
   },
